@@ -15,8 +15,12 @@
           <button type="submit">Submit</button>
         </div>
       </form>
-      {% if image_name %}
-        <img src="{{ url_for('static', filename=image_name)}}">
+      
+      {% if context.error %}
+      <p>Ошибка! {{ context.error }}</p>
+      {% endif %}
+      {% if context.filename %}
+        <img src="{{ url_for('static', filename=context.filename)}}">
       {% endif %}
     </div>
   </body>

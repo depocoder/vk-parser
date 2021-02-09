@@ -16,10 +16,18 @@ def get_link():
         link = request.form['link']
         disassembled_url = urlparse(link)
         group_id = os.path.basename(disassembled_url.path)
-        create_cloud(group_id)
-        return render_template('template.html', image_name=f'images/{group_id}.png')
+        error = create_cloud(group_id)
+        print(error)
+        if error:
+            return render_template('template.html', context={
+                "error": error
+                })
 
-    return render_template('template.html')
+        return render_template('template.html', context={
+            "filename": f'images/{group_id}.png'
+            })
+
+    return render_template('template.html', context=None)
 
 
 if __name__ == '__main__':

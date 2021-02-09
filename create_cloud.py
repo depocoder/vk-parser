@@ -69,7 +69,6 @@ def create_cloud(group_id):
     filename = os.path.join(f"{group_id}.png")
     path = os.path.join(os.getcwd(), 'static/images/', filename)
     plt.savefig(path)
-    return filename
 
 
 if __name__ == "__main__":
