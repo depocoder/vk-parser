@@ -13,19 +13,23 @@ def get_posts(vk_token, owner_id):
         'access_token': vk_token,
     }
 
-    if owner_id.isdigit():
-        params['owner_id'] = owner_id
+    if 'club' in owner_id:
+        owner_id = owner_id.split('club')[-1]
+        params['owner_id'] = f'-{owner_id}'
+    if 'public' in owner_id:
+        owner_id = owner_id.split('public')[-1]
+        params['owner_id'] = f'-{owner_id}'
+
     else:
         params['domain'] = owner_id
 
     response = requests.get(
         url='https://api.vk.com/method/wall.get',
         params=params)
-
     return response.json()
 
 
-def parse_hastags(response):
+def parse_hashtags(response):
     posts = response['response']['items']
     hashtags = collections.Counter()
     for post in posts:
@@ -43,12 +47,16 @@ def create_cloud(group_id):
     vk_token = os.getenv('VK_TOKEN')
 
     response = get_posts(vk_token, group_id)
-    hastags = parse_hastags(response)
+    error = response.get('error')
+    if error:
+        return error
+
+    hashtags = parse_hashtags(response)
 
     wc = WordCloud(
         width=2600, height=2200,
         background_color="white", relative_scaling=1.0,
-        collocations=False, min_font_size=10).generate_from_frequencies(dict(hastags))
+        collocations=False, min_font_size=10).generate_from_frequencies(dict(hashtags))
 
     plt.switch_backend('Agg')
     plt.axis("off")
@@ -58,9 +66,10 @@ def create_cloud(group_id):
     plt.xticks([])
     plt.yticks([])
     plt.tight_layout()
-    filename = f"{group_id}.png"
+    filename = os.path.join(f"{group_id}.png")
     path = os.path.join(os.getcwd(), 'static/images/', filename)
     plt.savefig(path)
+    return filename
 
 
 if __name__ == "__main__":

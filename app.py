@@ -18,8 +18,8 @@ def get_link():
         group_id = os.path.basename(disassembled_url.path)
         create_cloud(group_id)
         return render_template('template.html', image_name=f'images/{group_id}.png')
-    else:
-        return render_template('template.html')
+
+    return render_template('template.html')
 
 
 if __name__ == '__main__':
