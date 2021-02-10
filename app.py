@@ -17,7 +17,6 @@ def get_link():
         disassembled_url = urlparse(link)
         group_id = os.path.basename(disassembled_url.path)
         error = create_cloud(group_id)
-        print(error)
         if error:
             return render_template('template.html', context={
                 "error": error
