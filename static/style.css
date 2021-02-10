@@ -45,6 +45,17 @@ background: #ebebeb;
     padding: 10px 0;
 
 }
+.error_msg{
+    max-width: 650px;
+    color: rgb(0, 0, 0);
+    margin: auto;
+    border-radius: 5px; 
+    border: solid 1px #ccc;
+    box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
+    background: #ff0000; 
+    padding: 10px 0;
+
+}
 form {
 margin: 0 30px;
 }

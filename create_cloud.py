@@ -51,7 +51,7 @@ def create_cloud(group_id):
 
     error = response.get('error')
     if error:
-        return {"error": error}
+        return {"error": error['error_msg']}
     if not response['response']['items']:
         return {"error": 'Ошибка на строне VK'}
 
