@@ -73,7 +73,3 @@ def create_cloud(group_id):
 
 if __name__ == "__main__":
     create_cloud()
-
-    # error = posts.get('error')
-    # if error:
-    # TODO типа кастомная проверка потом
