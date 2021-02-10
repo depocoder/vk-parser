@@ -25,6 +25,7 @@ color: #a9a9a9;
 opacity: 0.3;
 }
 .main-block {
+min-width: 750px; 
 max-width: 900px; 
 min-height: 550px; 
 padding: 10px 0;

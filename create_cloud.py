@@ -49,9 +49,12 @@ def create_cloud(group_id):
     vk_token = os.getenv('VK_TOKEN')
 
     response = get_posts(vk_token, group_id)
+
     error = response.get('error')
     if error:
         return {"error": error}
+    if not response['response']['items']:
+        return {"error": 'Ошибка на строне VK'}
 
     hashtags, post_texts = parse_hashtags(response)
 
