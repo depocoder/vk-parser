@@ -13,13 +13,12 @@ def get_posts(vk_token, owner_id):
         'access_token': vk_token,
     }
 
-    if 'club' in owner_id:
+    if owner_id.startswith('club'):
         owner_id = owner_id.split('club')[-1]
         params['owner_id'] = f'-{owner_id}'
-    if 'public' in owner_id:
+    if owner_id.startswith('public'):
         owner_id = owner_id.split('public')[-1]
         params['owner_id'] = f'-{owner_id}'
-
     else:
         params['domain'] = owner_id
 
