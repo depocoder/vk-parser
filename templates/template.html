@@ -17,7 +17,9 @@
       </form>
       
       {% if context.error %}
+      <div class="post_texts">
         <p>Ошибка! {{ context.error }}</p>
+      </div>
       {% endif %}
       {% if context.filename %}
         <img src="{{ url_for('static', filename=context.filename)}}">
