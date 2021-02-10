@@ -17,11 +17,19 @@
       </form>
       
       {% if context.error %}
-      <p>Ошибка! {{ context.error }}</p>
+        <p>Ошибка! {{ context.error }}</p>
       {% endif %}
       {% if context.filename %}
         <img src="{{ url_for('static', filename=context.filename)}}">
+        {% for post in context.post_texts %}
+          <div class="post_texts">
+              {{ post }}
+          </div>
+        {% endfor %}
       {% endif %}
     </div>
+    {% if context.post_texts %}
+        
+    {% endif %}
   </body>
 </html>

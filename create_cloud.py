@@ -32,15 +32,17 @@ def get_posts(vk_token, owner_id):
 def parse_hashtags(response):
     posts = response['response']['items']
     hashtags = collections.Counter()
+    post_texts = []
     for post in posts:
         text = post.get('text')
 
         if not text:
             continue
+        post_texts.append(text)
         for tag in re.findall(r'[#@][^\s#@]+', text):
             hashtags[tag.lower()] += 1
 
-    return hashtags
+    return hashtags, post_texts
 
 
 def create_cloud(group_id):
@@ -49,9 +51,9 @@ def create_cloud(group_id):
     response = get_posts(vk_token, group_id)
     error = response.get('error')
     if error:
-        return error
+        return {"error": error}
 
-    hashtags = parse_hashtags(response)
+    hashtags, post_texts = parse_hashtags(response)
 
     wc = WordCloud(
         width=2600, height=2200,
@@ -69,6 +71,7 @@ def create_cloud(group_id):
     filename = os.path.join(f"{group_id}.png")
     path = os.path.join(os.getcwd(), 'static/images/', filename)
     plt.savefig(path)
+    return {"post_texts": post_texts}
 
 
 if __name__ == "__main__":

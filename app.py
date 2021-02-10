@@ -16,14 +16,16 @@ def get_link():
         link = request.form['link']
         disassembled_url = urlparse(link)
         group_id = os.path.basename(disassembled_url.path)
-        error = create_cloud(group_id)
+        response = create_cloud(group_id)
+        error = response.get('error')
         if error:
             return render_template('template.html', context={
                 "error": error
                 })
-
+        post_texts = response.get('post_texts')
         return render_template('template.html', context={
-            "filename": f'images/{group_id}.png'
+            "filename": f'images/{group_id}.png',
+            'post_texts': post_texts
             })
 
     return render_template('template.html', context=None)
