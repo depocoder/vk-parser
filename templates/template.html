@@ -24,6 +24,7 @@
       {% if context.filename %}
         <img src="{{ url_for('static', filename=context.filename)}}">
         {% for post in context.post_texts %}
+        <hr>
           <div class="post_texts">
               {{ post }}
           </div>
