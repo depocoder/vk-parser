@@ -38,9 +38,9 @@ def parse_hashtags(response):
 
         if not text:
             continue
-        post_texts.append(text)
         for tag in re.findall(r'[#@][^\s#@]+', text):
             hashtags[tag.lower()] += 1
+            post_texts.append(text)
 
     return hashtags, post_texts
 
